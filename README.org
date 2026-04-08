@@ -1,0 +1,69 @@
+#+TITLE: hsc3-tidal
+#+AUTHOR: Numa Tortolero
+
+* Introduction
+#+begin_quote
+~hsc3-tidal~ is a bridge between *hsc3* (Haskell SuperCollider) and *TidalCycles*.
+It allows you to define SuperCollider ~SynthDef~s using the hsc3 DSL and seamlessly
+use them in your live coding sessions with Tidal.
+#+end_quote
+
+This project emulates the workflow of ~vivid-tidal~ but leverages the power and
+flexibility of ~hsc3~.
+
+* Features
+- *Standard SuperDirt Integration*: Maps Tidal parameters (~freq~, ~sustain~, ~pan~, ~accelerate~) to hsc3 UGens.
+- *Hot-Reloading*: Sends ~SynthDef~s directly to scsynth and notifies ~SuperDirt~ instantly via OSC.
+- *Persistence*: Writes ~.scsyndef~ files to the SC synthdefs directory for metadata reading.
+- *Rich Examples*: Built-in synths like Bass, FM, Granular Samplers, Warp, etc.
+- *Buffer Utilities*: Request a "Cheat Sheet" of loaded buffers from Haskell to use with granular synths.
+
+* Prerequisites
+- SuperCollider + SuperDirt quark
+- TidalCycles
+- hsc3 and hosc libraries
+
+* Setup
+** 1. SuperCollider
+Use ~superdirt_start.scd~ to boot SuperDirt. It contains the OSC sync logic.
+
+** 2. Haskell Library
+Build the project using Cabal:
+#+begin_src bash
+cabal build
+#+end_src
+
+* Usage Workflow
+1. *Boot SuperCollider*: Run ~superdirt_start.scd~.
+2. *Start GHCI*:
+   #+begin_src bash
+   cabal repl --repl-options="-ghci-script BootTidal.hs"
+   #+end_src
+3. *Load and Send Synths*:
+   #+begin_src haskell
+   import Sound.Sc3.Tidal.Examples
+   loadExamples
+   #+end_src
+4. *Play from Tidal*:
+   #+begin_src tidal
+   d1 $ s "hsc3Bass" # n "c2 e2 g2 f2" # sustain 1 # pF "cutoff" 1200
+   #+end_src
+
+* Example Synths
+| Name          | Description               | Key Parameters             |
+|---------------+---------------------------+----------------------------|
+| ~hsc3Bass~    | Resonant Subtractive Bass | ~cutoff~, ~rq~             |
+| ~hsc3FM~      | 2-operator FM synth      | ~modIndex~, ~modRatio~     |
+| ~hsc3Sampler~ | Granular Sampler          | ~buf~, ~grainDensity~      |
+| ~hsc3Warp~    | Time-stretch Warp         | ~buf~, ~pos~               |
+| ~hsc3Metallic~| Resonator bank            | ~decayScale~               |
+
+* Buffer Cheat Sheet
+For granular synths requiring a ~buf~ number, run in GHCI:
+#+begin_src haskell
+dirtCheatSheet
+#+end_src
+Check the SCLang Post buffer for the IDs (e.g., ~bd~, ~sn~, ~arpy~).
+
+* License
+BSD-3-Clause

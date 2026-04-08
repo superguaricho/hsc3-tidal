@@ -1,0 +1,57 @@
+-- hsc3-tidal: Comprehensive Test Suite
+
+-- 1. BASS & MELODIC SYNTHS
+-- hsc3Bass: Subtractive resonant bass
+d1 $ s "hsc3Bass" # n "c2 e2 g2 f2" # sustain 1 # pF "cutoff" 1200 # pF "rq" 0.2
+
+-- hsc3FM: 2-operator FM
+d2 $ s "hsc3FM" # n "c4(3,8)" # pF "modIndex" 20 # pF "modRatio" 4 # sustain 0.2
+
+-- hsc3Glide: Frequency slide with 'accelerate'
+d3 $ s "hsc3Glide" # n "c3" # sustain 2 # accelerate 1
+
+-- hsc3Slide: Exponential frequency slide with 'glideTime'
+d4 $ s "hsc3Slide" # n "c2" # accelerate 2 # pF "glideTime" 0.5 # sustain 1
+
+-- 2. PERCUSSIVE & NOISE
+-- hsc3Hats: Percussive noise with HPF
+d1 $ s "hsc3Hats" # n "0*8" # pF "cutoff" 8000 # sustain 0.05 # gain 1.2
+
+-- hsc3Noise: Switchable noise types (0: white, 1: pink, 2: brown)
+d2 $ s "hsc3Noise" # pF "noiseType" "<0 1 2>" # pF "cutoff" 2000 # pF "rq" 0.05 # sustain 0.5
+
+-- hsc3GrainBeat: Rhythmic pulses
+d3 $ s "hsc3GrainBeat" # n "c2" # pF "beatsPerSec" 12 # pF "grainDur" 0.05 # sustain 2
+
+-- 3. SAMPLERS (Use 'dirtCheatSheet' to verify buffer numbers)
+-- hsc3Sample: Classic sampler (using 'bd' buffer: 348)
+d4 $ s "hsc3Sample" # pI "buf" 348 # speed 1 # sustain 1
+
+-- hsc3Sampler: Granular sampler (using 'arpy' buffer: 230)
+d5 $ s "hsc3Sampler" # pI "buf" 230 # speed 0.5 # pF "grainDensity" 60 # pF "grainDur" 0.2 # sustain 4
+
+-- hsc3Warp: Time-stretching warp (using 'casio' buffer: 467)
+d6 $ s "hsc3Warp" # pI "buf" 467 # pF "pos" 0.05 # speed 1 # sustain 8
+
+-- 4. TEXTURES & CLOUDS
+-- hsc3Cloud: Granular cloud texture
+d1 $ s "hsc3Cloud" # n "c5" # pF "grainDensity" 40 # pF "freqVar" 200 # sustain 2
+
+-- hsc3CloudRev: Cloud with integrated reverb
+d2 $ s "hsc3CloudRev" # n "g4" # pF "revMix" 0.8 # pF "revRoom" 0.9 # sustain 4
+
+-- hsc3Grains: Granulation with jitter
+d3 $ s "hsc3Grains" # n "f#4" # pF "grainDensity" 60 # pF "freqVar" 100 # sustain 2
+
+-- hsc3GrainFilter: Granular cloud with per-grain filtering
+d4 $ s "hsc3GrainFilter" # n "c4" # pF "cutoff" 3000 # pF "rq" 0.2 # sustain 2
+
+-- hsc3Metallic: Resonator bank excited by noise
+d5 $ s "hsc3Metallic" # n "[c3, g3, c4]" # pF "decayScale" 2 # sustain 1
+
+-- 5. UTILITIES
+-- hsc3Proxy: Route audio through SuperDirt (requires an external bus)
+-- d6 $ s "hsc3Proxy" # pI "in" 10 # sustain 1
+
+-- STOP ALL
+hush
