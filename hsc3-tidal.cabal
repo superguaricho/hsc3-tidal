@@ -1,6 +1,6 @@
 cabal-version:      3.0
 name:               hsc3-tidal
-version:            0.1.0.0
+version:            0.1.0.1
 synopsis:
     Send SynthDef's to scsynth via OSC messages to use it from TidalCycles
 
