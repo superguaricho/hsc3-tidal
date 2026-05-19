@@ -64,7 +64,7 @@ connects three distinct layers of the SuperCollider ecosystem:
 
    #+begin_src sh
    cd /path/to/hsc3-tidal
-   cabal repl
+   cabal repl --repl-options="-ghci-script hsc3-tidal.ghci"
    #+end_src
 
 3. *Boot TidalCycles*:
