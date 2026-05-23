@@ -1,11 +1,11 @@
 module Sound.Sc3.Tidal where
 
-import Sound.Sc3
-import Sound.Osc
-import qualified Sound.Osc.Transport.Fd as Fd
-import Sound.Osc.Transport.Fd.Udp (openUdp)
-import System.Directory (getHomeDirectory)
-import System.FilePath ((</>))
+import           Sound.Osc
+import qualified Sound.Osc.Transport.Fd     as Fd
+import           Sound.Osc.Transport.Fd.Udp (openUdp)
+import           Sound.Sc3
+import           System.Directory           (getHomeDirectory)
+import           System.FilePath            ((</>))
 
 -- | Standard SuperDirt parameters as hsc3 Controls
 s_out :: Ugen
@@ -31,7 +31,7 @@ dirtPan2 sig p level = pan2 sig (p * 2 - 1) level
 dirtFreqScale :: Ugen
 dirtFreqScale =
     let line_ugen = line kr 1 (1 + s_accelerate) s_sustain DoNothing
-    in line_ugen
+     in line_ugen
 
 -- | Generate a SynthDef for SuperDirt
 dirtSynthDef :: String -> Ugen -> Synthdef

@@ -30,7 +30,3 @@ tramp
 # OS specific files
 .DS_Store
 Thumbs.db
-
-hsc3-tidal-emacs.ghci
-loadme.ghci
-el/

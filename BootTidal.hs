@@ -1,6 +1,9 @@
 :set -fno-warn-orphans -Wno-type-defaults -XMultiParamTypeClasses -XOverloadedStrings
 :set prompt ""
 
+:l src/Sound/Sc3/Tidal.hs
+:l src/Sound/Sc3/Tidal/Examples.hs
+
 -- Import all the boot functions and aliases.
 import Sound.Tidal.Boot
 
@@ -23,6 +26,7 @@ instance Tidally where tidal = tidalInst
 -- You can also add your own aliases in this file. For example:
 -- fastsquizzed pat = fast 2 $ pat # squiz 1.5
 
-putStrLn "hsc3-tidal is ready! Try: d1 $ s \"hsc3Bass*4\" # n \"c2 f2 g2\""
+loadExamples
 :set prompt "tidal> "
 :set prompt-cont "> "
+putStrLn "hsc3-tidal is ready! Try: d1 $ s \"hsc3Bass*4\" # n \"c2 f2 g2\""
