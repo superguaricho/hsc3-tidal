@@ -58,7 +58,7 @@ dirtSendOnly sd = do
 dirtReload :: IO ()
 dirtReload = do
     fd <- openUdp "127.0.0.1" 57120
-    Fd.sendMessage fd $ Message "/vivid/reload" []
+    Fd.sendMessage fd $ Message "/hsc3/reload" []
     Fd.close fd
     putStrLn "SuperDirt notified: reload triggered."
 

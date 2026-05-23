@@ -29,7 +29,7 @@ s.reboot {
           0.5.wait; // Esperar un poco a que sclang respire
           ~printCheatSheet.value;
        }
-    }, '/vivid/reload').fix; 
+    }, '/hsc3/reload').fix; 
 
     ~printCheatSheet = {
        "".postln;

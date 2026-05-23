@@ -1,8 +1,19 @@
 -- hsc3-tidal: Comprehensive Test Suite
 
+import           Sound.Sc3.Tidal
+import           Sound.Sc3.Tidal.Examples
+
+loadExamples
+
 -- 1. BASS & MELODIC SYNTHS
 -- hsc3Bass: Subtractive resonant bass
-d1 $ s "hsc3Bass" # n "c2 e2 g2 f2" # sustain 1 # pF "cutoff" 1200 # pF "rq" 0.2
+d1 $ s "hsc3Bass*4" # n "c2 e2 g2 f2" # sustain 1 # pF "cutoff" 1200 # pF "rq" 0.2
+
+hush
+
+d1 $ s "bd"
+
+d2 $ s "hh*16"
 
 -- hsc3FM: 2-operator FM
 d2 $ s "hsc3FM" # n "c4(3,8)" # pF "modIndex" 20 # pF "modRatio" 4 # sustain 0.2
