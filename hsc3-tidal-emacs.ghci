@@ -1,0 +1,11 @@
+
+:def! boot \_ -> return ":script loadme.ghci"
+:{
+let l  = replicate 35 '-'
+in do
+  putStrLn ""
+  putStrLn l
+  putStrLn $ "| Type :boot to start hsc3-tidal. |"
+  putStrLn l
+  putStrLn ""
+:}
