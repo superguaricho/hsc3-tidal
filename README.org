@@ -70,7 +70,7 @@ connects three distinct layers of the SuperCollider ecosystem:
 3. **Boot the Environment**: Execute =:boot= in the GHCi session. This loads all modules (including Cymbals), defines all custom parameters (~pF~), and starts Tidal.
 4. **Play**: Try your first pattern:
    #+begin_src tidal
-   d1 $ s "hsc3Cymbal*4" # sustain 0.5
+   d1 $ s "hsc3Ride [hsc3Ride*2]" # sustain "1 0.5" # gain 1.2
    #+end_src
 
 ** Troubleshooting
@@ -91,6 +91,7 @@ chmod go-w . .ghci
 | =hsc3Warp=     | Time-stretching warp      | =buf=, =pos=                      |
 | =hsc3Metallic= | Resonator bank            | =decayScale=                      |
 | =hsc3Cymbal=   | Dan Stowell's Cymbal      | =sustain=                         |
+| =hsc3Ride=     | Bright Jazz Ride          | =sustain=                         |
 
 * Tidal Configuration
 :PROPERTIES:

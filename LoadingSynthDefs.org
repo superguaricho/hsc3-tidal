@@ -41,6 +41,7 @@ To integrate your hsc3 sounds into TidalCycles:
 3. **Play**: 
    #+BEGIN_SRC tidal
    d1 $ s "hsc3Cymbal*4" # sustain 0.5
+   d2 $ s "hsc3Ride [hsc3Ride*2]" # sustain "1 0.5" # gain 1.2
    #+END_SRC
 
 * Technical Notes

@@ -60,7 +60,23 @@ d4 $ s "hsc3GrainFilter" # n "c4" # pF "cutoff" 3000 # pF "rq" 0.2 # sustain 2
 -- hsc3Metallic: Resonator bank excited by noise
 d5 $ s "hsc3Metallic" # n "[c3, g3, c4]" # pF "decayScale" 2 # sustain 1
 
--- 5. UTILITIES
+-- 5. CYMBALS (Dan Stowell Model)
+-- hsc3Ride: Bright Jazz Ride (Focused on "ping")
+d1 $ s "hsc3Ride [hsc3Ride*2]" # sustain "1 0.5" # gain 1.2
+
+-- hsc3Cym: Basic resonance
+d1 $ s "hsc3Cym*4" # sustain 4 # gain 0.8
+
+-- hsc3CymS: With stick impact
+d2 $ s "hsc3CymS*2" # sustain 2 # gain 0.9
+
+-- hsc3CymSusp: Suspended cymbal (soft mallets)
+d3 $ s "hsc3CymSusp/2" # sustain 10 # gain 0.7
+
+-- hsc3CymSplash: Orchestral Splash
+d4 $ s "hsc3CymSplash*4" # sustain 0.8 # gain 0.8
+
+-- 6. UTILITIES
 -- hsc3Proxy: Route audio through SuperDirt (requires an external bus)
 -- d6 $ s "hsc3Proxy" # pI "in" 10 # sustain 1
 
