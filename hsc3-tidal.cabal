@@ -21,7 +21,8 @@ common warnings
 library
     import:           warnings
     exposed-modules:  Sound.Sc3.Tidal,
-                      Sound.Sc3.Tidal.Examples
+                      Sound.Sc3.Tidal.Examples,
+                      Sound.Sc3.Tidal.Cymbals
     -- other-modules:
 
     -- other-extensions:

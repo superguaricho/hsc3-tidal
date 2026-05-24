@@ -5,7 +5,7 @@ import           Sound.Sc3.Tidal.Examples
 
 -- 1. BASS & MELODIC SYNTHS
 -- hsc3Bass: Subtractive resonant bass
-d1 $ s "hsc3Bass*4" # n "c2 e2 g2 f2" # sustain 1 # pF "cutoff" 1200 # pF "rq" 0.2
+d1 $ s "hsc3Bass*4" # n "c3 f3 g3 c4" # sustain 1 # pF "cutoff" 1200 # pF "rq" 0.2
 
 d2 $ s "hh*16" # gain 1.5
 

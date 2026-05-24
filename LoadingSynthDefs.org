@@ -1,0 +1,49 @@
+#+TITLE: Loading hsc3 SynthDefs into SuperDirt
+#+AUTHOR: Gemini CLI & Numa Tortolero
+
+* The Challenge: Bridging the Gap
+Hsc3 (Haskell) communicates directly with the SuperCollider audio server (~scsynth~) via OSC. However, TidalCycles relies on SuperDirt, which runs in the SuperCollider language interpreter (~sclang~). For an hsc3 synth to be used in a Tidal pattern, ~sclang~ must be aware of its definition, parameters, and metadata.
+
+* The Solution: File-Based Synchronization
+The most sound way to register SynthDefs across both ~scsynth~ and ~sclang~ is by writing the definition to disk and then triggering a reload in SuperDirt.
+
+** 1. Haskell Side (hsc3)
+The ~Sound.Sc3.Tidal~ module provides helpers to:
+- *Persistence*: Serialize the ~Synthdef~ into a ~.scsyndef~ binary file in the default directory (~/.local/share/SuperCollider/synthdefs/~).
+- *Notification*: Send an OSC message (~/hsc3/reload~) to SuperDirt (port 57120) to signal that the file is ready.
+
+** 2. SuperCollider Side (SuperDirt)
+SuperDirt handles the notification by reading the new file and registering it as a module.
+
+* SuperDirt Compatible Structure
+For an hsc3 SynthDef to work with Tidal, it must use the standard controls:
+- ~out~: Output bus.
+- ~sustain~: Envelope duration.
+- ~pan~: Panning [0, 1].
+- ~freq~: Target frequency from Tidal's ~n~.
+
+** Example: The Cymbal Model
+The module ~Sound.Sc3.Tidal.Cymbals~ implements Dan Stowell's cymbal synthesis. 
+
+#+BEGIN_SRC haskell
+hsc3Cymbal =
+    let dur = s_sustain 
+        p = s_pan
+        -- ... logic ...
+    in dirtSynthDef "hsc3Cymbal" (dirtPan2 sig p 1.0)
+#+END_SRC
+
+* Workflow
+To integrate your hsc3 sounds into TidalCycles:
+
+1. **Start the REPL**: Run =cabal repl=.
+2. **Boot the Environment**: Execute =:script BootHsc3.hs= in the GHCi session.
+3. **Play**: 
+   #+BEGIN_SRC tidal
+   d1 $ s "hsc3Cymbal*4" # sustain 0.5
+   #+END_SRC
+
+* Technical Notes
+- **Names**: SuperDirt registers the name passed to ~dirtSynthDef~.
+- **Sync**: ~dirtReload~ triggers an asynchronous reload in ~sclang~.
+- **Stability**: File-based sync ensures metadata consistency between Haskell and SuperCollider.

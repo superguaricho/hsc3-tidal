@@ -1,0 +1,5 @@
+-- Define :boot command to load the unified environment
+:def boot (\_ -> return ":script BootHsc3.hs")
+
+-- Informational message on startup
+putStrLn "✨ hsc3-tidal REPL ready. Type :boot to start the environment."

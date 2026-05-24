@@ -47,7 +47,7 @@ connects three distinct layers of the SuperCollider ecosystem:
 :END:
 - *Haskell*: GHC 9.6.x (via =cabal=).
 - *SuperCollider* with the *SuperDirt* quark installed.
-- *TidalCycles* (Haskell libraryi for pattern sequencing.
+- *TidalCycles* (Haskell library) for pattern sequencing.
 
 ** Usage Workflow
 :PROPERTIES:
@@ -64,24 +64,20 @@ connects three distinct layers of the SuperCollider ecosystem:
 
    #+begin_src sh
    cd /path/to/hsc3-tidal
-   cabal repl --repl-options="-ghci-script hsc3-tidal.ghci"
+   cabal repl
    #+end_src
 
-3. *Boot TidalCycles*:
-
-   #+begin_src haskell
-   :boot
+3. **Boot the Environment**: Execute =:boot= in the GHCi session. This loads all modules (including Cymbals), defines all custom parameters (~pF~), and starts Tidal.
+4. **Play**: Try your first pattern:
+   #+begin_src tidal
+   d1 $ s "hsc3Cymbal*4" # sustain 0.5
    #+end_src
 
-4. *Test the system*:
-
-   #+begin_src haskell
-   tidal> d1 $ s "hsc3Bass*4"
-   tidal> d2 $ s "~ bd bd*2"
-   tidal> hush
-   #+end_src
-
-5. *Create your own Synths in hsc3 DSL and Tidal them!*
+** Troubleshooting
+If GHCi shows a warning like =*** WARNING: . is writable by someone else, IGNORING!=, it means the directory permissions are too open for GHCi's security policy. You can fix this by running:
+#+begin_src sh
+chmod go-w . .ghci
+#+end_src
 
 ** Example Synths
 :PROPERTIES:
@@ -94,44 +90,13 @@ connects three distinct layers of the SuperCollider ecosystem:
 | =hsc3Sampler=  | Granular sample playback  | =buf=, =grainDensity=, =grainDur= |
 | =hsc3Warp=     | Time-stretching warp      | =buf=, =pos=                      |
 | =hsc3Metallic= | Resonator bank            | =decayScale=                      |
-
-** Buffer Cheat Sheet
-:PROPERTIES:
-:CUSTOM_ID: buffer-cheat-sheet
-:END:
-For granular synths requiring a =buf= number, run the following in GHCI:
-
-#+begin_src haskell
-dirtCheatSheet
-#+end_src
-
-Check the SuperCollider post window for a list of common sample buffer
-IDs (e.g., =bd=, =sn=, =arpy=).
+| =hsc3Cymbal=   | Dan Stowell's Cymbal      | =sustain=                         |
 
 * Tidal Configuration
 :PROPERTIES:
 :CUSTOM_ID: tidal-configuration
 :END:
-To control the custom parameters of these synths, you must define them
-in your Tidal session. A comprehensive list of these definitions is
-available at the top of =TestSynths.tidal=.
-
-#+begin_src haskell
-let grainDensity = pF "grainDensity"
-    grainDur = pF "grainDur"
-    freqVar = pF "freqVar"
-    cutoff = pF "cutoff"
-    rq = pF "rq"
-    modIndex = pF "modIndex"
-    modRatio = pF "modRatio"
-    revMix = pF "revMix"
-    revRoom = pF "revRoom"
-    pos = pF "pos"
-    glideTime = pF "glideTime"
-    noiseType = pF "noiseType"
-    beatsPerSec = pF "beatsPerSec"
-    decayScale = pF "decayScale"
-#+end_src
+All custom parameters (~grainDensity~, ~cutoff~, ~rq~, etc.) are automatically defined when you run =:boot=.
 
 Example usage:
 
@@ -143,8 +108,22 @@ d1 $ s "hsc3Sampler" # sound "bd" # grainDensity 60 # grainDur 0.05
 d2 $ s "hsc3Warp" # sound "cp" # pos 0.1 # sustain 4
 #+end_src
 
+For detailed instructions on how to create and manage Synths, please refer to [[file:LoadingSynthDefs.org][LoadingSynthDefs.org]].
+
 ** License
 :PROPERTIES:
 :CUSTOM_ID: license
 :END:
 BSD-3-Clause
+
+---
+
+* Resumen (Español)
+=hsc3-tidal= conecta *hsc3* y *TidalCycles*. Define =SynthDef=s en Haskell y úsalos en Tidal.
+
+** Workflow:
+1. **SC**: Inicia =sclang superdirt_start.scd=.
+2. **GHCI**: =cabal repl= -> =:boot=.
+3. **Diversión**: =d1 $ s "hsc3Cymbal*4"=.
+
+Si hay errores de permisos en GHCI, usa: =chmod go-w . .ghci=.
